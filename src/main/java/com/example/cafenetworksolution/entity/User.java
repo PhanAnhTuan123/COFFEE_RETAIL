@@ -1,16 +1,18 @@
 package com.example.cafenetworksolution.entity;
 
+import com.example.cafenetworksolution.entity.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "User")
 @Getter
 @Setter
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +42,3 @@ public class User {
 
 }
 
-public enum Role {
-    Employee, Manager
-}

@@ -37,6 +37,9 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    // https://mvnrepository.com/artifact/net.datafaker/datafaker
+    implementation group: 'net.datafaker', name: 'datafaker', version: '2.4.2'
+
 
 }
 

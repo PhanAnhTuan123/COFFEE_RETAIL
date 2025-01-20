@@ -1,6 +1,7 @@
 package com.example.cafenetworksolution;
 
-import com.example.cafenetworksolution.entities.Cafe;
+import com.example.cafenetworksolution.entity.Role;
+import com.example.cafenetworksolution.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -12,31 +13,33 @@ public class Main {
         EntityManager em = emf.createEntityManager();
 
         try {
-            // Bắt đầu giao dịch
+            // Transaction begin
             em.getTransaction().begin();
 
-            // Tạo một đối tượng mới (ví dụ: Cafe)
-            Cafe cafe = new Cafe();
-            cafe.setName("Sunset Cafe");
-            cafe.setAddress("123 Main Street");
-            cafe.setOwner("John Doe");
+            // Create User
+            User user = new User();
+            user.setRole(Role.Manager);
+            // Save
+            em.persist(user);
 
-            // Lưu đối tượng vào database
-            em.persist(cafe);
 
-            // Kết thúc giao dịch
+            // Commit transaction
             em.getTransaction().commit();
-
             System.out.println("Cafe saved successfully!");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            if (em.getTransaction().isActive()) {
+            if (em != null && em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
+            e.printStackTrace();
         } finally {
-            em.close();
-            emf.close();
+            // Đóng EntityManager và EntityManagerFactory
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
         }
     }
 }

@@ -1,10 +1,15 @@
 package com.example.cafenetworksolution.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "User")
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -35,6 +40,6 @@ public class User {
 
 }
 
-enum Role {
+public enum Role {
     Employee, Manager
 }

@@ -1,0 +1,46 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JPA + Hibernate
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'org.hibernate:hibernate-core:5.6.15.Final'
+
+    // Connection pool
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+
+    // JSON (Jackson)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+
+    // JDBC drivers
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc:10.2.1.jre8'
+
+    // Nếu bạn muốn dùng Lombok, chỉ giữ đúng một phiên bản:
+    // (nếu không dùng, hãy xoá 2 dòng này)
+//    compileOnly 'org.projectlombok:lombok:1.18.28'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+    compileOnly 'org.projectlombok:lombok:1.18.30' // hoặc mới nhất tại https://projectlombok.org
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    implementation 'org.hibernate.orm:hibernate-core:6.3.1.Final'
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:12.6.1.jre11' // hoặc bản tương ứng với JDK bạn
+}
+
+
+application {
+    // Main class của server
+    mainClass = 'com.example.cafenetworksolution.server.CafeServer'
+}

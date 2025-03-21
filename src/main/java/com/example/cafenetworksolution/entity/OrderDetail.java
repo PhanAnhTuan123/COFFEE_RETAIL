@@ -1,27 +1,29 @@
 package com.example.cafenetworksolution.entity;
 
+import com.example.cafenetworksolution.entity.enumeration.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "OrderDetail")
 @Getter
 @Setter
-public class OrderDetail  implements Serializable {
-
+public class OrderDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @Column(nullable = false)
@@ -29,5 +31,4 @@ public class OrderDetail  implements Serializable {
 
     @Column(nullable = false)
     private Double subtotal;
-
 }

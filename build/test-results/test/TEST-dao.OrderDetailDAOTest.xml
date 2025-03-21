@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dao.OrderDetailDAOTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-04-21T09:13:08" hostname="TRIEUMINH" time="0.038">
+  <properties/>
+  <testcase name="testAddAndGetById()" classname="dao.OrderDetailDAOTest" time="0.021"/>
+  <testcase name="testUpdate()" classname="dao.OrderDetailDAOTest" time="0.006"/>
+  <testcase name="testGetAll()" classname="dao.OrderDetailDAOTest" time="0.004"/>
+  <testcase name="testDelete()" classname="dao.OrderDetailDAOTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 6505bbb0-3a0a-4189-bf60-c91e5dd0345b
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+]]></system-err>
+</testsuite>

@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CafeNetworkSolution.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CafeNetworkSolution.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CafeNetworkSolution.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CafeNetworkSolution.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.CafeNetworkSolution.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.CafeNetworkSolution.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.CafeNetworkSolution.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.CafeNetworkSolution.test.iml" />
     </modules>
   </component>
 </project>

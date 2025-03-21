@@ -23,7 +23,7 @@ public class DatabaseConnection {
 
     private static void initializeDataSource() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=coffee_shop_db;encrypt=true;trustServerCertificate=true");
+        config.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=CafeTestDB;encrypt=true;trustServerCertificate=true");
         config.setUsername("sa"); //
         config.setPassword("sapassword");
         config.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

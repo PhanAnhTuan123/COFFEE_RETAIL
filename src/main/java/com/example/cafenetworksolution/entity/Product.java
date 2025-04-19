@@ -1,4 +1,4 @@
-package com.example.cafenetworksolution.entity;
+package java.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.example.cafenetworksolution.entity;
+package java.entity;
 
-import com.example.cafenetworksolution.entity.enumeration.OrderStatus;
+import java.entity.enumeration.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "userID", referencedColumnName = "id", nullable = false)
-    private User user;
+    private java.entity.User user;
 
     @Column(name = "order_date", updatable = false)
     private LocalDateTime orderDate = LocalDateTime.now();

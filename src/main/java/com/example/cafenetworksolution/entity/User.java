@@ -1,6 +1,6 @@
-package com.example.cafenetworksolution.entity;
+package java.entity;
 
-import com.example.cafenetworksolution.entity.enumeration.Role;
+import java.entity.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

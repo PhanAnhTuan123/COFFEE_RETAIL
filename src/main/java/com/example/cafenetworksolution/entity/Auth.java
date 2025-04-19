@@ -3,6 +3,7 @@ package com.example.cafenetworksolution.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import entity.enumeration.User;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -30,4 +31,3 @@ public class Auth implements Serializable {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
 }
-

@@ -1,7 +1,7 @@
-package com.example.cafenetworksolution;
+package java;
 
-import com.example.cafenetworksolution.entity.enumeration.Role;
-import com.example.cafenetworksolution.entity.User;
+import java.entity.enumeration.Role;
+import java.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

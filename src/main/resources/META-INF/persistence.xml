@@ -4,12 +4,12 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="CafeNetworkSolutionPU">
-        <class>com.example.cafenetworksolution.entity.User</class>
-        <class>com.example.cafenetworksolution.entity.Category</class>
-        <class>com.example.cafenetworksolution.entity.Order</class>
-        <class>com.example.cafenetworksolution.entity.OrderDetail</class>
-        <class>com.example.cafenetworksolution.entity.Product</class>
-        <class>com.example.cafenetworksolution.entity.User</class>
+        <class>java.entity.User</class>
+        <class>java.entity.Category</class>
+        <class>java.entity.Order</class>
+        <class>java.entity.OrderDetail</class>
+        <class>java.entity.Product</class>
+        <class>java.entity.User</class>
         <properties>
             <!-- Driver và URL của cơ sở dữ liệu -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

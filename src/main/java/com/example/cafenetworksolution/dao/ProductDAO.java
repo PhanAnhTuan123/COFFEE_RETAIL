@@ -1,167 +1,165 @@
-package com.coffeeshop.dao;
+package com.example.cafenetworksolution.dao;
 
-import com.coffeeshop.config.DatabaseConnection;
-import com.coffeeshop.model.Category;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.cafenetworksolution.config.DatabaseConnection;
+import com.example.cafenetworksolution.entity.Product;
+import com.example.cafenetworksolution.entity.Category;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class CategoryDAO {
-    private static final Logger logger = LoggerFactory.getLogger(com.example.cafenetworksolution.dao.CategoryDAO.CategoryDAO.class);
+public class ProductDAO {
 
-    public List<Category> findAll() {
-        List<Category> categories = new ArrayList<>();
-        String sql = "SELECT id, name, description, created_at, updated_at FROM categories";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getLong("id"));
-                category.setName(rs.getString("name"));
-                category.setDescription(rs.getString("description"));
-                category.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-                category.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
-                categories.add(category);
-            }
-        } catch (SQLException e) {
-            logger.error("Lỗi khi lấy danh sách danh mục", e);
-        }
-
-        return categories;
-    }
-
-    public Optional<Category> findById(Long id) {
-        String sql = "SELECT id, name, description, created_at, updated_at FROM categories WHERE id = ?";
-
+    public Product getById(Integer id) {
+        String sql = "SELECT id, name, price, stock_quantity, category_id, created_at, updated_at FROM products WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setLong(1, id);
-
+            stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    Category category = new Category();
-                    category.setId(rs.getLong("id"));
-                    category.setName(rs.getString("name"));
-                    category.setDescription(rs.getString("description"));
-                    category.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-                    category.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
-                    return Optional.of(category);
+                    Product product = new Product();
+                    product.setId(rs.getInt("id"));
+                    product.setName(rs.getString("name"));
+                    product.setPrice(rs.getBigDecimal("price").doubleValue());
+                    product.setStockQuantity(rs.getInt("stock_quantity"));
+                    product.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                    product.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
+
+                    Integer categoryId = rs.getInt("category_id");
+                    CategoryDAO categoryDAO = new CategoryDAO();
+                    product.setCategory(categoryDAO.getById(categoryId));
+
+                    return product;
                 }
             }
         } catch (SQLException e) {
-            logger.error("Lỗi khi tìm danh mục theo ID: " + id, e);
+            e.printStackTrace();
         }
-
-        return Optional.empty();
+        return null;
     }
 
-    public Category save(Category category) {
-        if (category.getId() == null) {
-            return insert(category);
-        } else {
-            return update(category);
-        }
-    }
-
-    private Category insert(Category category) {
-        String sql = "INSERT INTO categories (name, description, created_at, updated_at) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            LocalDateTime now = LocalDateTime.now();
-            category.setCreatedAt(now);
-            category.setUpdatedAt(now);
-
-            stmt.setString(1, category.getName());
-            stmt.setString(2, category.getDescription());
-            stmt.setTimestamp(3, Timestamp.valueOf(category.getCreatedAt()));
-            stmt.setTimestamp(4, Timestamp.valueOf(category.getUpdatedAt()));
-
-            int affectedRows = stmt.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Tạo danh mục thất bại, không có dòng nào được thêm vào");
-            }
-
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    category.setId(generatedKeys.getLong(1));
-                } else {
-                    throw new SQLException("Tạo danh mục thất bại, không lấy được ID");
-                }
-            }
-        } catch (SQLException e) {
-            logger.error("Lỗi khi thêm danh mục mới", e);
-        }
-
-        return category;
-    }
-
-    private Category update(Category category) {
-        String sql = "UPDATE categories SET name = ?, description = ?, updated_at = ? WHERE id = ?";
-
+    public boolean update(Product product) {
+        String sql = "UPDATE products SET name = ?, price = ?, stock_quantity = ?, category_id = ?, updated_at = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             LocalDateTime now = LocalDateTime.now();
-            category.setUpdatedAt(now);
+            product.setUpdatedAt(now);
 
-            stmt.setString(1, category.getName());
-            stmt.setString(2, category.getDescription());
-            stmt.setTimestamp(3, Timestamp.valueOf(category.getUpdatedAt()));
-            stmt.setLong(4, category.getId());
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("Lỗi khi cập nhật danh mục với ID: " + category.getId(), e);
-        }
-
-        return category;
-    }
-
-    public boolean delete(Long id) {
-        String sql = "DELETE FROM categories WHERE id = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setLong(1, id);
+            stmt.setString(1, product.getName());
+            stmt.setBigDecimal(2, BigDecimal.valueOf(product.getPrice()));
+            stmt.setInt(3, product.getStockQuantity());
+            stmt.setInt(4, product.getCategory().getId());
+            stmt.setTimestamp(5, Timestamp.valueOf(product.getUpdatedAt()));
+            stmt.setInt(6, product.getId());
 
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
-            logger.error("Lỗi khi xóa danh mục với ID: " + id, e);
-            return false;
+            e.printStackTrace();
         }
+        return false;
     }
 
-    public boolean existsById(Long id) {
-        String sql = "SELECT COUNT(*) FROM categories WHERE id = ?";
-
+    public boolean delete(Integer id) {
+        String sql = "DELETE FROM products WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-            stmt.setLong(1, id);
+    public List<Product> getAll() {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT id, name, price, stock_quantity, category_id, created_at, updated_at FROM products";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setPrice(rs.getBigDecimal("price").doubleValue());
+                product.setStockQuantity(rs.getInt("stock_quantity"));
+                product.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                product.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
 
+                Integer categoryId = rs.getInt("category_id");
+                CategoryDAO categoryDAO = new CategoryDAO();
+                product.setCategory(categoryDAO.getById(categoryId));
+
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    public List<Product> getByCategory(Integer categoryId) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT id, name, price, stock_quantity, category_id, created_at, updated_at FROM products WHERE category_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, categoryId);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setId(rs.getInt("id"));
+                    product.setName(rs.getString("name"));
+                    product.setPrice(rs.getBigDecimal("price").doubleValue());
+                    product.setStockQuantity(rs.getInt("stock_quantity"));
+                    product.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                    product.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
+
+                    CategoryDAO categoryDAO = new CategoryDAO();
+                    product.setCategory(categoryDAO.getById(categoryId));
+
+                    products.add(product);
                 }
             }
         } catch (SQLException e) {
-            logger.error("Lỗi khi kiểm tra tồn tại danh mục với ID: " + id, e);
+            e.printStackTrace();
         }
+        return products;
+    }
 
-        return false;
+    public Integer add(Product product) {
+        String sql = "INSERT INTO products (name, price, stock_quantity, category_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            LocalDateTime now = LocalDateTime.now();
+            product.setCreatedAt(now);
+            product.setUpdatedAt(now);
+
+            stmt.setString(1, product.getName());
+            stmt.setBigDecimal(2, BigDecimal.valueOf(product.getPrice()));
+            stmt.setInt(3, product.getStockQuantity());
+            stmt.setInt(4, product.getCategory().getId());
+            stmt.setTimestamp(5, Timestamp.valueOf(product.getCreatedAt()));
+            stmt.setTimestamp(6, Timestamp.valueOf(product.getUpdatedAt()));
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating product failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return Math.toIntExact(generatedKeys.getLong(1));
+                } else {
+                    throw new SQLException("Creating product failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

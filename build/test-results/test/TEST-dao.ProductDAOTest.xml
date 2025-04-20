@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dao.ProductDAOTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-04-20T10:33:32" hostname="VYVY" time="0.384">
+  <properties/>
+  <testcase name="testAddProduct()" classname="dao.ProductDAOTest" time="0.384"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: a3237b5f-6146-464d-9af4-b267eb735ce9
+[Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+]]></system-err>
+</testsuite>

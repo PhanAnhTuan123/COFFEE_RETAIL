@@ -5,20 +5,21 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "Orders")
 @Getter
 @Setter
-public class Order {
-
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userID", nullable = false)
     private User user;
 
     @Column(name = "order_date", updatable = false)
@@ -30,6 +31,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status = OrderStatus.Pending;
-}
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> details;
+}
 

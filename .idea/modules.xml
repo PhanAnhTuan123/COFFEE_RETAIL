@@ -6,7 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/CoffeeRetail.client.test.iml" filepath="$PROJECT_DIR$/.idea/modules/client/CoffeeRetail.client.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/CoffeeRetail.server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/CoffeeRetail.server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/CoffeeRetail.server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/CoffeeRetail.server.test.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/com.example.CoffeeRetail.server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/com.example.CoffeeRetail.server.main.iml" />
+=======
+>>>>>>> 8d27f5891eca5afd7663a07e12228e7729bc8670
     </modules>
   </component>
 </project>

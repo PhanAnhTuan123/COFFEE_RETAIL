@@ -4,11 +4,15 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+<<<<<<< HEAD
         <option name="delegatedBuild" value="true" />
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="corretto-17" />
+=======
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+>>>>>>> 8d27f5891eca5afd7663a07e12228e7729bc8670
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />

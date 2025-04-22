@@ -5,10 +5,17 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
+<<<<<<< HEAD
           <entry name="$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
         </processorPath>
         <module name="client.CoffeeRetail.client.main" />
         <module name="com.example.CoffeeRetail.server.main" />
+=======
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="CoffeeRetail.client.main" />
+        <module name="CoffeeRetail.server.main" />
+>>>>>>> 8d27f5891eca5afd7663a07e12228e7729bc8670
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
